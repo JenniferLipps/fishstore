@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import Auth from '../components/Auth/Auth';
 import Home from '../components/Home/Home';
+import MyNavBar from '../components/MyNavBar/MyNavBar';
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fbConnection from '../helpers/data/connection';
@@ -24,9 +25,14 @@ class App extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.removeListener();
+  }
+
   render() {
+    const { authed } = this.state;
     const loadComponent = () => {
-      if (this.state.authed) {
+      if (authed) {
         return <Home />;
       }
       return <Auth />;
@@ -34,6 +40,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <MyNavBar authed={authed}/>
         {loadComponent()}
       </div>
     );
