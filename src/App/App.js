@@ -1,28 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import Auth from '../components/Auth/Auth';
+import Home from '../components/Home/Home';
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import fbConnection from '../helpers/data/connection';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button className="btn btn-warning">fish</button>
-      </header>
-    </div>
-  );
+fbConnection();
+
+class App extends React.Component {
+  state = {
+    authed: false,
+  }
+
+  render() {
+    const loadComponent = () => {
+      if (this.state.authed) {
+        return <Home />;
+      }
+      return <Auth />;
+    };
+
+    return (
+      <div className="App">
+        {loadComponent()}
+      </div>
+    );
+  }
 }
 
 export default App;
