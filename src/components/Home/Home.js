@@ -17,14 +17,25 @@ class Home extends React.Component {
     fishes: [],
   }
 
+  getOrders = () => {
+    ordersData.getMyOrders(firebase.auth().currentUser.uid)
+      .then(orders => this.setState({ orders }))
+      .catch(err => console.error('no orders', err));
+  }
+
   componentDidMount() {
     fishData.getFishes()
       .then(fishes => this.setState({ fishes }))
       .catch(err => console.error('could not get fishes', err));
 
-    ordersData.getMyOrders(firebase.auth().currentUser.uid)
-      .then(orders => this.setState({ orders }))
-      .catch(err => console.error('no orders', err));
+    this.getOrders();
+  }
+
+  deleteOrder = (orderId) => {
+    // console.error('button click', orderId);
+    ordersData.deleteOrder(orderId)
+      .then(() => this.getOrders())
+      .catch(err => console.error('did not delete order', err));
   }
 
   render() {
@@ -39,7 +50,7 @@ class Home extends React.Component {
             <NewOrder />
           </div>
           <div className="col">
-            <Orders orders={orders}/>
+            <Orders orders={orders} deleteOrder={this.deleteOrder} />
           </div>
         </div>
       </div>

@@ -8,11 +8,12 @@ import orderShape from '../../helpers/propz/orderShape';
 class Orders extends React.Component {
   static propTypes = {
     orders: PropTypes.arrayOf(orderShape.orderShape),
+    deleteOrder: PropTypes.func.isRequired,
   }
 
   render() {
     const orderComponents = this.props.orders.map(order => (
-      <OrderRow key={order.id} order={order} />
+      <OrderRow key={order.id} order={order} deleteOrder={this.props.deleteOrder} />
     ));
 
     return (
