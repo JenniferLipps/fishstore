@@ -28,7 +28,7 @@ class Orders extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Order #</th>
+              <th scope="col">Order Name</th>
               <th scope="col">Date</th>
               <th scope="col"># Fish</th>
               <th scope="col"></th>
