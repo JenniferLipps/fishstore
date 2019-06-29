@@ -2,7 +2,7 @@ import React from 'react';
 
 import format from '../../helpers/format';
 
-import fishShape from '../../helpers/propz/fishShapes';
+import fishShape from '../../helpers/propz/fishShape';
 
 import './Fish.scss';
 
